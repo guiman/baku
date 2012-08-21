@@ -1,8 +1,15 @@
+var express = require('express');
+var stylus = require('stylus');
+
+var app = express();
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 var redis = require("redis");
-var redis_cli = redis.createClient();
+var redis_cli = redis.createClient(); //Redis shouls be running before node initialization...
 
-redis_cli.on("message", function(channel, message){
-  console.log("redis client channel: "+ channel + " with message: "+ JSON.parse(message).ir_data);
-});
+require('./config')(app, express, stylus, redis_cli);
+require('./routes')(app, io, redis_cli);
 
-redis_cli.subscribe("wiimote_ir_channel");
+server.listen(3000);
+console.log('Listening on port 3000');
