@@ -2,8 +2,7 @@
 html
     head
         title= title
-        script(src='../../public/scripts/thirdparty/zepto.js')
-        script(src='/socket.io/socket.io.js')
-   
+        script(data-main='public/scripts/main.js', src='public/scripts/require.js')
+
     body
         block mainContent

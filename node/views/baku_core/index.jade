@@ -1,11 +1,8 @@
 extends layout
 
 block mainContent
+
     h1= title
 
     p This is #{title}
 
-    script(src='../../public/scripts/baku_client.js')
-    script(type='text/javascript')
-        var baku = BakuCore;
-        baku.connect();

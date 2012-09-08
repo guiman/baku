@@ -7,7 +7,7 @@
 //Module dependencies
 //...
 
-module.exports = function(app, express, stylus, redis_cli){
+module.exports = function(app, express, io, stylus, redis_cli, store){
 
     function compile(str, path) {
         return stylus(str)
@@ -21,7 +21,7 @@ module.exports = function(app, express, stylus, redis_cli){
     }
 
     app.configure(function(){
-     
+
         app.use(express.bodyParser());
         app.use(express.methodOverride());
         app.use(stylus.middleware({
@@ -33,6 +33,13 @@ module.exports = function(app, express, stylus, redis_cli){
         app.set('view options', {
             layout: false
         });
+
+        app.use(express.cookieParser());
+        app.use(express.session({
+            store: store,
+            key: 'sid',
+            secret: 'some_secret_here' //Math.random() * 10000000
+        }));
         /* Subscribing to wiimote redis channel */
         redis_cli.subscribe("wiimote_ir_channel");
 
@@ -52,4 +59,6 @@ module.exports = function(app, express, stylus, redis_cli){
     app.configure('production', function(){
         app.use(express.errorHandler());
     });
+
+
 }
