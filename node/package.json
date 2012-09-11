@@ -1,0 +1,15 @@
+{
+  "name": "baku-node",
+  "description": "Baku Node side. Handles the webserver, sockets, and well the client side app, baku_core",
+  "author": "Baku Team",
+  "dependencies": {
+    "redis": "0.6.x",
+    "express": "3.x.x",
+    "jade": "0.x.x",
+    "stylus": "0.x.x",
+    "socket.io": "0.9.x"
+  },
+  "devDependencies": {
+  },
+  "engine": "node >= 0.6.5"
+}

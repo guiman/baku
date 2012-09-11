@@ -14,45 +14,50 @@ module.exports = function(app, io, redis_cli, store){
 
 
 	/* WebSockets area */
-	io.sockets.authorization(function(data, accept){
-        if (data.headers.cookie){
-            var cookies = require('express/node_modules/cookie').parse(data.headers.cookie);
 
-            data.sessionID = require('express/node_modules/connect/lib/utils').parseSignedCookies(cookies, 'some_secret_here');
+	/* general sockets authorization */
+	io.configure(function (){
+		io.set('authorization', function(data, accept){
+	//io.sockets.authorization(function(data, accept){
+	        if (data.headers.cookie){
+	            var cookies = require('express/node_modules/cookie').parse(data.headers.cookie);
 
-            data.sessionStore = store;
+	            data.sessionID = require('express/node_modules/connect/lib/utils').parseSignedCookies(cookies, 'some_secret_here');
 
-            data.sessionStore.get(data.sessionID['sid'], function(err, session){
-                if (err || !session){
-                    console.log("ERROR", err);
-                    console.log("session:", session);
-                    return accept("Invalid session", false);
-                }
-                console.log("creating session data");
-                data.session = session;
-                accept(null, true);
+	            data.sessionStore = store;
 
-            });
-        }
-        else{
-            return accept("No cookie transmitted.", false);
-        }
+	            data.sessionStore.get(data.sessionID['sid'], function(err, session){
+	                if (err || !session){
+	                    console.log("ERROR", err);
+	                    console.log("session:", session);
+	                    //return accept("Invalid session", false);
+	                }
+	                console.log("creating session data");
+	                data.session = session;
+	                accept(null, true);
+	            });
+	        }
+	        else{
+	            return accept("No cookie transmitted.", false);
+	        }
+	    });
+	});
 
-    });
-
-	io.sockets.on('connection', function (socket) {
-		var session = socket.handshake.session;
-
-		socket.emit('notifications', { msg: 'connection establised!' });
-
-		socket.on('configupdate', function(data){
+	//IR CHANNEL
+    var ir_channel = io
+		.of("/ir")
+    	.on("connection", function (socket) {
+			socket.emit("notifications", { msg: 'connection establised!' });
+		})
+    	.on("configupdate", function(socket, data){
+			var session = socket.handshake.session;
 			//Here we reflect baku config changes on the session
 			session.heartRate = data.heartRate;
-			session.save()
+			session.save();
 			console.log("New heart rate for session: ", data.heartRate);
-			//update redis?
-		})
-	});
+		});
+
+	//another CHANNEL ...
 
 	/* END WebSockets area */
 
@@ -61,9 +66,9 @@ module.exports = function(app, io, redis_cli, store){
 	redis_cli.on("message", function(channel, message){
 		var data = JSON.parse(message).ir_data;
 
-		console.log("redis client channel: "+ channel + " with message: "+ data);
-		//Pushing data to the client..
-		io.sockets.emit('wii_ir', {data:data});
+		//console.log("redis client channel: "+ channel + " with message: "+ data);
+
+		ir_channel.emit('wii_ir', {data:data});	//Pushing data to the client..
 
 	});
 

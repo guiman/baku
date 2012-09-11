@@ -6,13 +6,14 @@
 
 //Module dependencies
 //...
+path = require('path');
 
-module.exports = function(app, express, io, stylus, redis_cli, store){
+module.exports = function(app, express, io, redis_cli, store){
 
     function compile(str, path) {
         return stylus(str)
-        .set('filename', path)
-        .set('compress', true)
+            .set('filename', path)
+            .set('compress', true);
     }
 
     function prepare_app(module_name){
@@ -21,25 +22,39 @@ module.exports = function(app, express, io, stylus, redis_cli, store){
     }
 
     app.configure(function(){
+        app.set('port', process.env.PORT || 3000);
 
-        app.use(express.bodyParser());
-        app.use(express.methodOverride());
-        app.use(stylus.middleware({
-            src: __dirname + '/public',
+        /*
+        app.use(require('stylus').middleware({
+            force: true,
+            src: __dirname + '/public/stylesheets',
             compile: compile
         }));
-        app.use(app.router);
-        app.use('/public', express.static(__dirname + '/public'));
-        app.set('view options', {
-            layout: false
-        });
+        */
+        app.use(express.bodyParser());
+        app.use(express.methodOverride());
 
+        app.use(express.favicon());
+
+
+        app.use(require('stylus').middleware(__dirname + '/public'));
+        app.use(app.router);
+        app.use('/public', express.static(path.join(__dirname, 'public')));
         app.use(express.cookieParser());
         app.use(express.session({
             store: store,
             key: 'sid',
             secret: 'some_secret_here' //Math.random() * 10000000
         }));
+        /*
+        app.set('view options', {
+            layout: false
+        });
+    */
+        app.use(express.logger('dev'));
+
+        //app.use('/public', express.static(__dirname + '/public'));
+
         /* Subscribing to wiimote redis channel */
         redis_cli.subscribe("wiimote_ir_channel");
 

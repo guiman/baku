@@ -1,0 +1,9 @@
+/*
+*   General Baku Style
+*/
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #f7f7f7;
+  background-image: url("../images/subtle_carbon_@2X.png");
+  background-color: #666;
+}

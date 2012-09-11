@@ -10,8 +10,10 @@ define(['socketio', 'zepto'], function(io, $){
 
 	/* Private Variables  */
 	var DOMAIN = "http://localhost";
+	var IRDOMAIN = "http://localhost/ir";
+	//add other doimains here..
 	var DEFAULT_HEART_RATE = 0.7;
-	var socket;
+	var channel;
 	/* End Private Variables */
 
 	/*** Public Interface ***/
@@ -31,47 +33,52 @@ define(['socketio', 'zepto'], function(io, $){
 	function turnOn(options){
 		/*
 		options can be:
-			onMessage: function which will be applied when a message arrives. [REQUIRED]
+			onIR: function which will be applied when a IR message arrives. [DEFAULT: console logging]
+			onButton: function which will be applied when a button message arrives. [DEFAULT: console logging]
 			heartRate: a value between 0 and 1 which indicates the rate of upcomming messages. [DEFAULT: 0.7]
 			onError: function applied when an error happens. [DEFAULT: console logging]
-			onConnect: function applied as a callback after connect event happens. [DEFAULT: console loggings]
+			onConnect: function applied as a callback after connect event happens. [DEFAULT: console logging]
 
 		*/
 
 		checkOptions(options);
 
-		var wiimote_cn = io.connect(DOMAIN);
+		sio = io.connect(DOMAIN);
 
-		wiimote_cn.on("notifications", function(data){
-			console.log(data);
-		});
+		channel = sio.socket;
 
-		wiimote_cn.on("wii_ir", function(data){
-			if (binaryWeightedRandom(options.heartRate)){
-				options.onMessage.apply(options.context, [data.data]);
-			}
-		});
-		return wiimote_cn;
+		channel.of("/ir")
+			.on("notifications", function(data){
+				console.log(data);
+			})
+			.on("wii_ir", function(data){
+				if (binaryWeightedRandom(options.heartRate)){
+					options.onIR.apply(options.context, [data.data]);
+				}
+			})
+			.on("connect_failed", function(reason) {
+				console.log("connection failed: ", reason);
+			})
+			.on("error", function(reason){
+				console.log("Error reason: ", reason);
+			});
 
 	};
 
 	function turnOff(someSocket){
 		console.log("Switching off baku's channel...");
-		someSocket.disconnect();
+		channel.disconnect();
 	};
 
 
 	function checkOptions(options){
 		/*
-		Handles errors with baku initialization object.
+		Handles baku core's initialization errors.
 		*/
 
-		if (typeof(options) != 'object'){
-			throw "options is an object defining at least onMessage function";
-		}
-
-		if (!options.hasOwnProperty('onMessage')){
-			throw "options is an object defining at least onMessage function";
+		if (!options.hasOwnProperty('onIR') || (typeof(options.onIR) != 'function')){
+			//add default function
+			options.onIR = console.log;
 		}
 
 		if (!options.hasOwnProperty('onError') || (typeof(options.onError) != 'function')){

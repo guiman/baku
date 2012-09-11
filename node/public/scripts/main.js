@@ -21,6 +21,6 @@ requirejs.config({
 requirejs(['app/baku_core'], function(baku_core) {
     console.log("Baku is ready.");
     //Example setup below...
-    var options = {'onMessage':console.log, 'context': console};
+    var options = {'onIR':console.log, 'context': console};
     baku_core.connect(options);
 });
