@@ -1,4 +1,4 @@
 require "rubygems"
 require "daemons"
 
-Daemons.run("redis-srv.rb");
+Daemons.run("wiimote_to_redis.rb");

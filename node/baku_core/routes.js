@@ -16,32 +16,35 @@ module.exports = function(app, io, redis_cli, store){
 	/* WebSockets area */
 
 	/* general sockets authorization */
-	io.configure(function (){
-		io.set('authorization', function(data, accept){
+	
 	//io.sockets.authorization(function(data, accept){
-	        if (data.headers.cookie){
-	            var cookies = require('express/node_modules/cookie').parse(data.headers.cookie);
+	io.configure(function (){
+			io.set('authorization', function(data, accept){
+				console.log(data.headers);
+	      if (data.headers.cookie){
+	          var cookies = require('express/node_modules/cookie').parse(data.headers.cookie);
 
-	            data.sessionID = require('express/node_modules/connect/lib/utils').parseSignedCookies(cookies, 'some_secret_here');
+	          data.sessionID = require('express/node_modules/connect/lib/utils').parseSignedCookies(cookies, 'some_secret_here');
 
-	            data.sessionStore = store;
+	          data.sessionStore = store;
 
-	            data.sessionStore.get(data.sessionID['sid'], function(err, session){
-	                if (err || !session){
-	                    console.log("ERROR", err);
-	                    console.log("session:", session);
-	                    //return accept("Invalid session", false);
-	                }
-	                console.log("creating session data");
-	                data.session = session;
-	                accept(null, true);
-	            });
-	        }
-	        else{
-	            return accept("No cookie transmitted.", false);
-	        }
-	    });
-	});
+	          data.sessionStore.get(data.sessionID['sid'], function(err, session){
+	              if (err || !session){
+	                  console.log("ERROR", err);
+	                  console.log("session:", session);
+	                  //return accept("Invalid session", false);
+	              }
+	              console.log("creating session data");
+	              data.session = session;
+	              accept(null, true);
+	          });
+	      }
+	      else{
+	          return accept("No cookie transmitted.", false);
+	      }
+	  });
+  });
+	
 
 	//IR CHANNEL
     var ir_channel = io

@@ -18,9 +18,10 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['app/baku_core'], function(baku_core) {
-    console.log("Baku is ready.");
+requirejs(['app/baku_core', 'app/first_test'], function(baku_core, first_test) {
+    //console.log("Baku is ready.");
     //Example setup below...
-    var options = {'onIR':console.log, 'context': console};
+    first_test.initialize();
+    var options = {'onIR':first_test.render, 'context': first_test};
     baku_core.connect(options);
 });
