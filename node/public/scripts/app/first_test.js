@@ -1,5 +1,5 @@
-define(['zepto', 'd3.v2'], function($, d3){
-  var svn_element; 
+define(['zepto', 'd3'], function($, d3){
+  var svg_element; 
 
   function start(){
     //Create elements

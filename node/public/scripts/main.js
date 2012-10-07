@@ -6,12 +6,18 @@ requirejs.config({
 
     paths: {
         app: '../app',
-        socketio: '../../../socket.io/socket.io'
+        socketio: '../../../socket.io/socket.io',
+        zepto: '../wrappers/zepto',
+        d3: 'd3.v2'
     },
 
     shim: {
         'socketio': {
             exports: 'io'
+        },
+
+        'd3': {
+            exports: 'd3'
         }
     }
 
