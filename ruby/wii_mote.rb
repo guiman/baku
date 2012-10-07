@@ -4,7 +4,7 @@ require "./randomizer.rb"
 # This is a stub for the real WiiMote controller.
 # It creates an array of points like [[X,Y], [A,B]] that mimmic the real ir_data controller information
 class WiiMote
-  attr_accessor :a, :b, :c, :d
+  attr_accessor :randomizer
   
   def initialize(randomizer)
     @randomizer = randomizer
@@ -12,6 +12,5 @@ class WiiMote
   
   def emmitt
     @randomizer.randomize self
-    [[a, b], [c, d]]
   end
 end

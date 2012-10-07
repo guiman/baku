@@ -11,16 +11,13 @@ class ZoomRandomizer < Randomizer
   end
   
   def randomize(mote)
+    initialize if @x2 <= 50 # when they are in the same point, restart
+    
     @x1 += 1
     @y1 += 1
     @x2 -= 1
     @y2 -= 1
     
-    mote.a = @x1
-    mote.b = @y1
-    mote.c = @x2
-    mote.d = @y2
-    
-    initialize if @x2 <= 50 # when they are in the same point, restart
+    [[@x1, @y1], [@x2, @y2]]
   end
 end
