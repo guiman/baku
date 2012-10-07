@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'bundler/setup'
 require 'redis'
 require 'json'
 require "./wii_mote.rb"
@@ -11,7 +12,7 @@ require "./gesture.rb"
 redis = Redis.new
 
 # Creates a WiiMote with a certain point behaviour, in this case: ZoomRandomizer
-wiimote = WiiMote.new Randomizer.new(2)
+wiimote = WiiMote.new ZoomRandomizer.new
 
 last_distance_between_points = 0
 
