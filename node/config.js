@@ -8,7 +8,7 @@
 //...
 path = require('path');
 
-module.exports = function(app, express, io, redis_cli, store){
+module.exports = function(app, express, redis_cli, store){
 
     function compile(str, path) {
         return stylus(str)
@@ -40,11 +40,11 @@ module.exports = function(app, express, io, redis_cli, store){
         app.use(require('stylus').middleware(__dirname + '/public'));
         app.use(app.router);
         app.use('/public', express.static(path.join(__dirname, 'public')));
-        app.use(express.cookieParser());
+        app.use(express.cookieParser('some_secret_here'));
         app.use(express.session({
             store: store,
-            key: 'sid',
-            secret: 'some_secret_here' //Math.random() * 10000000
+            key: 'sid'
+            //secret: 'some_secret_here' //Math.random() * 10000000
         }));
         /*
         app.set('view options', {
