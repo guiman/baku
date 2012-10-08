@@ -1,14 +1,14 @@
 baku
 ====
 
-Node + Redis + Ruby + WiiMote = ????_API
+"(multiple) IR tracking in the comfort of your browser."
 
 What's baku?
 ------------
 
-Baku is a plataform, that allow you to connect to a WiiMote device from a web browser. For now we are only capturing the IR Sensor Data and broadcasting it from a Ruby driver via Redis to a Node.js server witch has an application that uses Sockets.io to communicate with the browser.
+Baku is an experimental platform, that allows you to connect to a WiiMote device from a web browser. For now we are only capturing the IR Sensor Data and broadcasting it from a Ruby driver via Redis to a Node.js server witch has an application that uses Sockets.io to communicate with the browser.
 
-The idea is to emmit IR Light to the sensor an capture it's location.
+The idea is to emmit IR Light to the sensor an capture it's location, deliver this data to the browser app in a standard (through an API) real-time way so you can manipulate this information as you want to.
 
 Why would you do this?
 ----------------------
@@ -29,6 +29,7 @@ Exploration areas
 Some of the areas we would like to explore:
 
 * Alternative HCI's with different devices like robots, UIs, etc.
+* Gesture research.
 * Online gaming.
 * Multiuser realtime interaction in a web browser with a more "human" experience.
 
@@ -45,8 +46,3 @@ Dependencies
     *  [stylus](http://learnboost.github.com/stylus/) 
 
 Take a look at each project site for installing instructions according to your platform. For the whole node.js bundle we recommend use the npm way.
-
-Objective
----------
-
-This is an experimental project in witch the main idea it's to be able to interact with WiiMote IR camera information in a real-time way. To this purpose we will be using multiple technologies such as Rubys Cwiid gem (WiiMote interface), Redis(make data from cwiid flow in a network) and Node (use data delivered by Redis and expose it to the world! or do whatever you want to in a nodeway =D).
