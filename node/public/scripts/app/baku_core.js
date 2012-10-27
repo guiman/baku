@@ -76,12 +76,12 @@ define(['socketio', 'zepto'], function(io, $){
 		Handles baku core's initialization errors.
 		*/
 
-		if (!options.hasOwnProperty('onIR') || (typeof(options.onIR) != 'function')){
+		if ((!options.hasOwnProperty('onIR') || (typeof(options.onIR) != 'function')){
 			//add default function
 			options.onIR = console.log;
 		}
 
-		if (!options.hasOwnProperty('onError') || (typeof(options.onError) != 'function')){
+		if ((!options.hasOwnProperty('onError') || (typeof(options.onError) != 'function')){
 			options.onError = console.log;
 		}
 

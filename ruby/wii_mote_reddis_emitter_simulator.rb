@@ -9,7 +9,7 @@ require "./zoom_gesture_parser.rb"
 # This example script simulates the WiiMote signals that should be echoed on the
 # redis server. Also I'm adding some extra information regarding zoom gesture capture
 
-redis = Redis.new
+redis = Redis.new host: "192.168.0.5"
 
 # Creates a WiiMote with a certain signal behaviour, in this case: ZoomRandomizer
 wiimote = WiiMote.new(ZoomRandomizer.new)
@@ -24,5 +24,5 @@ loop do
   redis.publish "wiimote_ir_channel", { ir_data: ir_data, gesture_data: zoom_gesture_parser.parse(ir_data) }.to_json  unless ir_data.empty?
   
   # Let's not choke the server
-  sleep 0.5
+  sleep 0.01
 end
