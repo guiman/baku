@@ -1,6 +1,6 @@
 require "./randomizer"
 
-# This is a specialized Randomizer witch makes two points get closer
+# This is a specialized Randomizer that simulates two points get closer/far away from each other
 class ZoomRandomizer < Randomizer
   
   def initialize
@@ -8,15 +8,21 @@ class ZoomRandomizer < Randomizer
     @x2 = 100
     @y1 = 0
     @y2 = 100
+    @factor = 1
+  end
+  
+  def initialize_factor
+    @factor = -1
   end
   
   def randomize(mote)
-    initialize if @x2 <= 50 # when they are in the same point, restart
+    initialize_factor if @x2 <= 50 
+    inititlize if @x2 == 0 && @factor == -1 # when they are in the same point, restart
     
-    @x1 += 1
-    @y1 += 1
-    @x2 -= 1
-    @y2 -= 1
+    @x1 += @factor
+    @y1 += @factor
+    @x2 -= @factor
+    @y2 -= @factor
     
     [[@x1, @y1], [@x2, @y2]]
   end
