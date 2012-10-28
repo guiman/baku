@@ -1,28 +1,28 @@
 require "./randomizer"
 
 # This is a specialized Randomizer that simulates two points get closer/far away from each other
+# 
 class ZoomRandomizer < Randomizer
   
-  def initialize
+  def initialize(how_far_away = 100)
     @x1 = 0
-    @x2 = 100
+    @x2 = how_far_away
     @y1 = 0
-    @y2 = 100
-    @factor = 1
+    @y2 = how_far_away
+    @factor_p_1 = 1
+    @factor_p_2 = -1
   end
   
-  def initialize_factor
-    @factor = -1
-  end
-  
-  def randomize(mote)
-    initialize_factor if @x2 <= 50 
-    inititlize if @x2 == 0 && @factor == -1 # when they are in the same point, restart
+  def run
+    if (@x1 == @x2)
+      @factor_p_1 * -1
+      @factor_p_2 * -1
+    end
     
-    @x1 += @factor
-    @y1 += @factor
-    @x2 -= @factor
-    @y2 -= @factor
+    @x1 +=  1 * @factor_p_1
+    @y1 +=  1 * @factor_p_1
+    @x2 +=  1 * @factor_p_2
+    @y2 +=  1 * @factor_p_2
     
     [[@x1, @y1], [@x2, @y2]]
   end

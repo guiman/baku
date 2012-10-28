@@ -11,6 +11,6 @@ class WiiMote
   end
   
   def emmitt
-    @randomizer.randomize self unless @randomizer.nil?
+    @randomizer.run unless @randomizer.nil?
   end
 end
