@@ -24,5 +24,5 @@ loop do
   redis.publish "wiimote_ir_channel", { ir_data: ir_data, gesture_data: zoom_gesture_parser.parse(ir_data) }.to_json  unless ir_data.empty?
   
   # Let's not choke the server
-  sleep 0.5
+  sleep 0.01
 end
