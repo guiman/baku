@@ -1,4 +1,5 @@
 require 'test/unit'
+require_relative '../geometry'
 require_relative '../randomizer'
 
 class RandomizerTest < Test::Unit::TestCase
