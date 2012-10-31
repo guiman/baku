@@ -1,5 +1,3 @@
-require "./randomizer"
-
 # This is a specialized Randomizer that simulates two points get closer/far away from each other
 class ZoomRandomizer < Randomizer
   
