@@ -7,7 +7,11 @@ var server = http.createServer(app);
 
 var store = new express.session.MemoryStore({reapInterval: 60000 * 10}); //aka sessionStore
 var redis = require("redis");
-var redis_cli = redis.createClient(6379, "192.168.0.5"); //Redis server should be running before node initialization...
+
+var host = "192.168.0.5";
+var port = 6379;
+
+var redis_cli = redis.createClient(); //Redis server should be running before node initialization...
 
 require('./config')(app, express, redis_cli, store);
 
