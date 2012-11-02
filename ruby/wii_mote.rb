@@ -1,6 +1,3 @@
-require './geometry.rb'
-require "./randomizer.rb"
-
 # This is a stub for the real WiiMote controller.
 # It creates an array of points like [[X,Y], [A,B]] that mimmic the real ir_data controller information
 class WiiMote
@@ -10,7 +7,12 @@ class WiiMote
     @randomizer = randomizer
   end
   
-  def emmitt
-    @randomizer.randomize self unless @randomizer.nil?
+  def get_state
+    # Uses to emulate the cwiid WiiMote class api
+    self
+  end
+  
+  def ir
+    @randomizer.run unless @randomizer.nil?
   end
 end

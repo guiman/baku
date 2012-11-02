@@ -1,9 +1,10 @@
 {
   "name": "baku-node",
+  "version": "0.2.0",
   "description": "Baku Node side. Handles the webserver, sockets, and well the client side app, baku_core",
   "author": "Baku Team",
   "dependencies": {
-    "redis": "0.6.x",
+    "redis": "0.x.x",
     "express": "3.x.x",
     "jade": "0.x.x",
     "stylus": "0.x.x",

@@ -6,7 +6,7 @@ class Randomizer
     @number_of_signals = signals
   end
   
-  def randomize(mote)
+  def run
     ret = []
     
     @number_of_signals.times do

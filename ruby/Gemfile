@@ -2,4 +2,4 @@ source "http://rubygems.org"
 gem "geometry"
 gem "redis"
 gem "json"
-gem "cwiid"
+gem "cwiid" if RUBY_PLATFORM =~ /linux/

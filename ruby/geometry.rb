@@ -1,5 +1,5 @@
 require 'geometry'
-require './math_util.rb'
+require_relative 'math_util'
 
 module Geometry
   class Point

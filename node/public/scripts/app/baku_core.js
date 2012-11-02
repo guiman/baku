@@ -9,8 +9,8 @@
 define(['socketio', 'zepto'], function(io, $){
 
 	/* Private Variables  */
-	var DOMAIN = "http://localhost";
-	var IRDOMAIN = "http://localhost/ir";
+	var DOMAIN = "http://192.168.0.37";
+	var IRDOMAIN = "http://192.168.0.37/ir";
 	//add other doimains here..
 	var DEFAULT_HEART_RATE = 0.7;
 	var channel;
