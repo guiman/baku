@@ -8,7 +8,11 @@ requirejs.config({
         app: '../app',
         socketio: '../../../socket.io/socket.io',
         zepto: '../wrappers/zepto',
-        d3: 'd3.v2'
+        d3: 'd3.v2',
+        backbone: 'backbone',
+        underscore: 'underscore',
+        jquery: 'jquery',
+        text: 'text'
     },
 
     shim: {

@@ -8,7 +8,10 @@
     (*) http://www.dhteumeuleu.com/the-law-of-robotics/2/
     (you should really cheack this guy works!)
 ******************************************************************************/
-define(['zepto'], function($){
+define(['jquery',
+        'underscore',
+        'backbone'], 
+    function($,_,Backbone){
 
     /*  Public module interface */
     function publicStart(){
