@@ -10,6 +10,9 @@ var site = require('./core.js');
 module.exports = function(app, io, redis_cli, store){
 	/* Express routes area */
 	app.get('/', site.index);
+	//app.get('/presentacion', site.presentacion);
+
+
 	/* End Express routes area */
 
 
