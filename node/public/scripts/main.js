@@ -28,7 +28,8 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['app/baku_core', 'app/first_test'], function(baku_core, first_test) {
+
+requirejs(['app/baku_core', 'app/gesture_test'], function(baku_core, first_test) {
     console.log("Baku is ready.");
     //Example setup below...
     first_test.initialize();
