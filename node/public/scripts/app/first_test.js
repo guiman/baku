@@ -1,3 +1,11 @@
+/******************************************************************************
+
+  first_test.js
+
+  Super simple example. Consumes straigtht through the API all the IR position
+  information.
+
+******************************************************************************/
 define(['zepto', 'd3'], function($, d3){
   var svg_element;
 

@@ -8,7 +8,11 @@ requirejs.config({
         app: '../app',
         socketio: '../../../socket.io/socket.io',
         zepto: '../wrappers/zepto',
-        d3: 'd3.v2'
+        d3: 'd3.v2',
+        backbone: 'backbone',
+        underscore: 'underscore',
+        jquery: 'jquery',
+        text: 'text'
     },
 
     shim: {
@@ -24,8 +28,9 @@ requirejs.config({
 });
 
 // Start the main app logic.
+
 requirejs(['app/baku_core', 'app/gesture_test'], function(baku_core, first_test) {
-    //console.log("Baku is ready.");
+    console.log("Baku is ready.");
     //Example setup below...
     first_test.initialize();
     var options = {'onIR':first_test.render, 'context': first_test};

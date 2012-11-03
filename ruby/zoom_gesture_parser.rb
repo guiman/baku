@@ -40,3 +40,4 @@ class ZoomGestureParser
     [direction, magnitude]
   end
 end
+
